@@ -45,3 +45,45 @@ const userPrompts = [
     ]
   }
 ];
+
+const createDepart = [
+  {
+    type: 'input',
+    name: 'newDepart',
+    message: 'Enter the name of the new department'
+  }
+];
+
+function firstProm() {
+  menu = () => {
+    inquirer.prompt(userPrompts)
+      .then(answer => {
+        switch(answer.menuChoice) {
+          case 1:
+            listDepart()
+            break;
+          case 2: 
+            listRoles()
+            break;
+          case 3: 
+            listEmployees()
+            break;
+          case 4:
+            addDepart()
+            break;
+          case 5:
+            addRole()
+            break;
+          case 6:
+            addEmployee()
+            break;
+          case 7:
+            updateEmployee()
+            break;
+          case 8:
+            employeeDb.connect.end();
+            break;
+        }
+      })
+  }
+}
