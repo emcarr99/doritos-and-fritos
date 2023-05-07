@@ -93,10 +93,84 @@ function firstProm() {
       })
   }
 
-  menu();
+  menu()
+// function to list departments
+  function listDepart () {
+    employeeDb.allDepartments().then(([rows]) => {
+      let department = rows;
+      console.table('Departments', department);
+    }).then(() => menu())
+  }
 
-  function listDepart ()
+// function to list roles
+function listRoles() {
+  employeeDb.allRoles().then(([rows]) => {
+    let role = rows;
+    console.table('Roles', role);
+  }).then(() => menu())
+}
 
+// function to list employees
+function listEmployees() {
+  employeeDb.allEmployees().then(([rows]) => {
+    let employee = rows;
+    console.table('Employees', employee);
+  }).then(() => menu())
+}
+
+// function to add department
+function addDepart() {
+  inquirer.prompt(createDepart)
+  .then((answer) => {
+    let name = answer.newDepart;
+    employeeDb.insertDepartment(name);
+    console.log(`'${name}' added to department database`);
+  })
+  .then(() => menu())
+}
+
+// function to add role
+function addRole() {
+  employeeDb.allDepartments().then(([rows]) => {
+    let departments = rows;
+    const seeDepartment = departments.map(({id, name}) => ({
+      name: name,
+      value: id
+    }));
+    
+    inquirer.prompt([
+      {
+        type: 'input',
+        name: 'title',
+        message: 'Enter the new role'
+      },
+      {
+        type: 'input',
+        name: 'salary',
+        message: 'Enter the salary for this role',
+        validate: (answer) => {
+          if (isNaN(answer)) {
+            return "do not include '$' or ',' in salary input"
+          }
+          return true;
+        }
+      },
+      {
+        type: 'input',
+        name: 'department_id',
+        message: 'Enter the department this role belongs to',
+        choices: listDepart
+      }
+    ])
+    .then((answers) => {
+      employeeDb.insertRole(answer)
+      .then(() => console.log(`${answer.title} added to role database`))
+    })
+    .then(() => menu())
+  })
+}
+
+// function to add employee
 
 }
 
