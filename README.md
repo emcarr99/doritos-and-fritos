@@ -16,7 +16,7 @@ An application that allows the user to manage their database of employees from t
 To use this application you can clone this repo to access it.
 
 ## Usage
-Demo Video: 
+Demo Video: https://drive.google.com/file/d/14o_X-af67Up_fpC_N0SKhZ3-LHbaoanb/view?usp=sharing
 
 1. Clone this repo.
 2. Next right click on the 'schema.sql' file in the db folder & open an integrated terminal, open your mySQL CLI and run schema.sql & seeds.sql, once this is done quit mySQL.
