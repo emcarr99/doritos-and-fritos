@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 // require inquirer 
-require('console.table');
+require("console.table");
 
 const employeeDb = require ('./db/queries');
 
