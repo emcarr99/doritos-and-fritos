@@ -186,7 +186,7 @@ function addEmployee() {
     let firstName = answer.first_name;
     let lastName = answer.last_name;
 
-      employeeDb.allRole().then(([rows]) => {
+      employeeDb.allRoles().then(([rows]) => {
         let roles = rows;
 
         const showRoles = roles.map(({id, title}) => ({
