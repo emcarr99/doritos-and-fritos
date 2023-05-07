@@ -4,6 +4,12 @@ require("console.table");
 
 const employeeDb = require ('./db/queries');
 
+init();
+
+function init() {
+  console.log('test test');
+};
+
 const userPrompts = [
   {
     type: 'list',
@@ -86,6 +92,13 @@ function firstProm() {
         }
       })
   }
+
+  menu();
+
+  function listDepart ()
+
+
 }
 
 firstProm();
+

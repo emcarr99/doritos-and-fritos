@@ -2,7 +2,7 @@
 const connection = require('./connect');
 
 // Class constructor to export SQL query functions
-class EmployeeDataBase {
+class EmployeeDatabase {
   constructor(connection) {
     this.connection = connection;
   }
@@ -58,19 +58,19 @@ class EmployeeDataBase {
   }
 
   // Pass in new dep. name
-  insertDepartment(newDepartment) {
+  addDepartment(newDepartment) {
     return this.connection
       .promise()
       .query(`INSERT INTO department (name) VALUES (?);`, newDepartment);
   }
 
   //Pass in title, salary, and dep._id from prompt
-  insertRole(newRole) {
+  addRole(newRole) {
     return this.connection.promise().query(`INSERT INTO role SET ?;`, newRole);
   }
 
   //Pass in first/last name, role, and manager from prompt
-  insertEmployee(newEmployee) {
+  addEmployee(newEmployee) {
     return this.connection
       .promise()
       .query(`INSERT INTO employee SET ?;`, newEmployee);
@@ -88,4 +88,4 @@ class EmployeeDataBase {
 
 }
 
-module.exports = new EmployeeDataBase(connection);
+module.exports = new EmployeeDatabase(connection);
