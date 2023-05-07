@@ -87,7 +87,7 @@ function firstProm() {
             updateEmployee()
             break;
           case 8:
-            employeeDb.connect.end();
+            employeeDb.connection.end();
             break;
         }
       })
@@ -156,13 +156,13 @@ function addRole() {
         }
       },
       {
-        type: 'input',
+        type: 'list',
         name: 'department_id',
         message: 'Enter the department this role belongs to',
-        choices: listDepart
+        choices: seeDepartment
       }
     ])
-    .then((answers) => {
+    .then((answer) => {
       employeeDb.insertRole(answer)
       .then(() => console.log(`${answer.title} added to role database`))
     })
@@ -238,6 +238,51 @@ function addEmployee() {
 }
 
 // function to update employee role
+function updateEmployee() {
+  employeeDb.allEmployees().then(([rows]) => {
+    let employees = rows;
+
+    const listEmployees = employees.map(({id, first_name, last_name}) => ({
+      name: `${first_name} ${last_name}`,
+      value: id
+    }))
+    
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'employee',
+        choices: listEmployees
+      }
+    ])
+    .then((answer) => {
+      let employee_id = answer.employee;
+
+      employeeDb.allRoles().then(([rows]) => {
+        let roles = rows;
+        const listRoles = roles.map(({ id, title }) => ({
+          name: title,
+          value: id,
+        }))
+        inquirer.prompt([
+          {
+            type: "list",
+            name: "role_id",
+            message: "Enter the new role",
+            choices: listRoles
+          }])
+          .then((answer) => {
+            let newRole = answer.role_id;
+
+            employeeDb.updateEmployeeRole(newRole, employee_id)
+
+            console.log('Employee role has been updated')
+          })
+          .then(() => menu())
+      })
+    })
+  })
+}
+
 }
 
 firstProm();

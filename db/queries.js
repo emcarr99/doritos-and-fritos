@@ -44,7 +44,6 @@ class EmployeeDatabase {
     );
   }
 
- 
   allManagers() {
     return this.connection.promise().query(
       `SELECT
@@ -64,7 +63,6 @@ class EmployeeDatabase {
     return this.connection.promise().query(`INSERT INTO role SET ?;`, newRole);
   }
 
-
   addEmployee(newEmployee) {
     return this.connection
       .promise()
@@ -80,6 +78,21 @@ class EmployeeDatabase {
       ]);
   }
 
+  insertDepartment(newDepartment) {
+    return this.connection
+      .promise()
+      .query(`INSERT INTO department (name) VALUES (?);`, newDepartment);
+  }
+
+  insertRole(newRole) {
+    return this.connection.promise().query(`INSERT INTO role SET ?;`, newRole);
+  }
+
+  insertEmployee(newEmployee) {
+    return this.connection
+      .promise()
+      .query(`INSERT INTO employee SET ?;`, newEmployee);
+  }
 }
 
 module.exports = new EmployeeDatabase(connection);
