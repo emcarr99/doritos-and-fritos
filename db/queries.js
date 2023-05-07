@@ -1,13 +1,12 @@
 // Import connection to database
 const connection = require('./connect');
 
-// Class constructor to export SQL query functions
+
 class EmployeeDatabase {
   constructor(connection) {
     this.connection = connection;
   }
 
-  //Return dep ID & name to display to user
   allDepartments() {
     return this.connection.promise().query(
       `SELECT 
@@ -17,7 +16,6 @@ class EmployeeDatabase {
     );
   }
 
-  // Return the role id, job title, the department that role belongs to, and the salary for that role as one table
   allRoles() {
     return this.connection.promise().query(
       `SELECT 
@@ -29,7 +27,6 @@ class EmployeeDatabase {
     );
   }
 
-  // formatted table showing employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
   allEmployees() {
     return this.connection.promise().query(
       `SELECT 
@@ -47,7 +44,7 @@ class EmployeeDatabase {
     );
   }
 
-  // Use sub query to select the manager_id from employee and display that employees first/last name AS manager
+ 
   allManagers() {
     return this.connection.promise().query(
       `SELECT
@@ -57,26 +54,23 @@ class EmployeeDatabase {
     );
   }
 
-  // Pass in new dep. name
   addDepartment(newDepartment) {
     return this.connection
       .promise()
       .query(`INSERT INTO department (name) VALUES (?);`, newDepartment);
   }
 
-  //Pass in title, salary, and dep._id from prompt
   addRole(newRole) {
     return this.connection.promise().query(`INSERT INTO role SET ?;`, newRole);
   }
 
-  //Pass in first/last name, role, and manager from prompt
+
   addEmployee(newEmployee) {
     return this.connection
       .promise()
       .query(`INSERT INTO employee SET ?;`, newEmployee);
   }
 
-  // Update role_id where the employee id = inserted id#
   updateEmployeeRole(role_id, employee_id) {
     return this.connection
       .promise()
